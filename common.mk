@@ -162,6 +162,10 @@ include $(QCOM_COMMON_PATH)/components.mk
 # Filesystem
 TARGET_FS_CONFIG_GEN += $(QCOM_COMMON_PATH)/config.fs
 
+# Partition source order for Product/Build properties pickup.
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.product.property_source_order=odm,vendor,product,system_ext,system
+
 # Public Libraries
 PRODUCT_COPY_FILES += \
     $(QCOM_COMMON_PATH)/configs/public.libraries.product-qti.txt:$(TARGET_COPY_OUT_PRODUCT)/etc/public.libraries-qti.txt \
