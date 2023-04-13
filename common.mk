@@ -13,6 +13,7 @@
 # limitations under the License.
 
 QCOM_COMMON_PATH := device/qcom/common
+TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 
 ifeq ($(TARGET_BOARD_PLATFORM),)
 $(error "TARGET_BOARD_PLATFORM is not defined yet, please define in your device makefile so it's accessible to QCOM common.")
@@ -148,6 +149,9 @@ DEVICE_MATRIX_FILE += \
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
+
+PRODUCT_VENDOR_PROPERTIES += ro.vendor.qti.va_aosp.support=1
+PRODUCT_ODM_PROPERTIES += ro.vendor.qti.va_odm.support=1
 endif
 
 # Components
@@ -180,9 +184,73 @@ PRODUCT_COPY_FILES += \
     device/qcom/qssi/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml \
     device/qcom/qssi/qti_whitelist_system_ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/qti_whitelist_system_ext.xml
 
+# HIDL
+PRODUCT_PACKAGES += \
+    android.hidl.base@1.0 \
+    android.hidl.base@1.0_system \
+    android.hidl.base@1.0.vendor \
+    android.hidl.manager@1.0 \
+    android.hidl.manager@1.0_system \
+    android.hidl.manager@1.0.vendor \
+    libhidltransport.vendor \
+    libhwbinder.vendor
+
+# Neural Network
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full-rtti
+
+# Pre-optimization
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    SystemUI
+
+# Charger
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.charger.enable_suspend=1
+
+# Compile SystemUI on device with `speed`.
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.systemuicompilerfilter=speed
+
+# QTI framework detect
+PRODUCT_PACKAGES += \
+    libvndfwk_detect_jni.qti \
+    libqti_vndfwk_detect \
+    libvndfwk_detect_jni.qti.vendor \
+    libqti_vndfwk_detect.vendor \
+    libqti_vndfwk_detect_system \
+    libqti_vndfwk_detect_vendor \
+    libvndfwk_detect_jni.qti_system \
+    libvndfwk_detect_jni.qti.vendor
+
+# QSSI properties
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    arm64.memtag.process.system_server=off \
+    dalvik.vm.dex2oat64.enabled=true \
+    ro.launcher.blur.appLaunch=0
+
+# Disable RescueParty due to high risk of data loss
+PRODUCT_PRODUCT_PROPERTIES += \
+    persist.sys.disable_rescue=true
+
 # Vendor Service Manager
 PRODUCT_PACKAGES += \
     vndservicemanager
+
+# Common android HIDL vendor variant
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.4.vendor \
+    android.hardware.gatekeeper@1.0.vendor \
+    android.hardware.keymaster@4.1.vendor \
+    android.hardware.neuralnetworks@1.3.vendor \
+    android.hardware.authsecret@1.0.vendor
+
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.camera.device@1.0.vendor
+
+# Exfat FS
+PRODUCT_PACKAGES += \
+    fsck.exfat \
+    mkfs.exfat
 
 # SoC
 PRODUCT_VENDOR_PROPERTIES += \
