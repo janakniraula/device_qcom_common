@@ -207,10 +207,6 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     ro.charger.enable_suspend=1
 
-# Compile SystemUI on device with `speed`.
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.systemuicompilerfilter=speed
-
 # QTI framework detect
 PRODUCT_PACKAGES += \
     libvndfwk_detect_jni.qti \
@@ -221,12 +217,6 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect_vendor \
     libvndfwk_detect_jni.qti_system \
     libvndfwk_detect_jni.qti.vendor
-
-# QSSI properties
-PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    arm64.memtag.process.system_server=off \
-    dalvik.vm.dex2oat64.enabled=true \
-    ro.launcher.blur.appLaunch=0
 
 # Disable RescueParty due to high risk of data loss
 PRODUCT_PRODUCT_PROPERTIES += \
