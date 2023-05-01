@@ -182,17 +182,13 @@ PRODUCT_COPY_FILES += \
 # HIDL
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
-    android.hidl.base@1.0_system \
     android.hidl.base@1.0.vendor \
     android.hidl.manager@1.0 \
-    android.hidl.manager@1.0_system \
-    android.hidl.manager@1.0.vendor \
+    libhidltransport \
     libhidltransport.vendor \
-    libhwbinder.vendor
-
-# Neural Network
-PRODUCT_PACKAGES += \
-    libprotobuf-cpp-full-rtti
+    libhwbinder \
+    libhwbinder.vendor \
+    android.hidl.allocator@1.0.vendor
 
 # Pre-optimization
 PRODUCT_DEXPREOPT_SPEED_APPS += \
@@ -204,13 +200,9 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 
 # QTI framework detect
 PRODUCT_PACKAGES += \
-    libvndfwk_detect_jni.qti \
     libqti_vndfwk_detect \
-    libvndfwk_detect_jni.qti.vendor \
     libqti_vndfwk_detect.vendor \
-    libqti_vndfwk_detect_system \
-    libqti_vndfwk_detect_vendor \
-    libvndfwk_detect_jni.qti_system \
+    libvndfwk_detect_jni.qti \
     libvndfwk_detect_jni.qti.vendor
 
 # Disable RescueParty due to high risk of data loss
