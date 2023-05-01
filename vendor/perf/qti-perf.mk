@@ -37,6 +37,7 @@ endif
 
 # Packages
 PRODUCT_PACKAGES += \
+    android.hardware.power-service-qti \
     android.hardware.thermal@2.0.vendor \
     libavservices_minijail.vendor \
     libpsi.vendor \
