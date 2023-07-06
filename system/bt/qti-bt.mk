@@ -12,11 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Include QTI Bluetooth makefiles.
-ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
-$(call inherit-product, vendor/qcom/opensource/commonsys-intf/bluetooth/bt-system-opensource-product.mk)
-endif
-
 # Properties
 ifneq ($(TARGET_USE_QTI_BT_STACK),false)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
