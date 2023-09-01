@@ -192,39 +192,12 @@ PRODUCT_PACKAGES += \
     libhwbinder.vendor \
     android.hidl.allocator@1.0.vendor
 
-# Pre-optimization
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUI
-
-# Charger
-PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    ro.charger.enable_suspend=1
-
 # QTI framework detect
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect \
     libqti_vndfwk_detect.vendor \
     libvndfwk_detect_jni.qti \
     libvndfwk_detect_jni.qti.vendor
-
-# Disable RescueParty due to high risk of data loss
-PRODUCT_PRODUCT_PROPERTIES += \
-    persist.sys.disable_rescue=true
-
-# Vendor Service Manager
-PRODUCT_PACKAGES += \
-    vndservicemanager
-
-# Common android HIDL vendor variant
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4.vendor \
-    android.hardware.gatekeeper@1.0.vendor \
-    android.hardware.keymaster@4.1.vendor \
-    android.hardware.neuralnetworks@1.3.vendor \
-    android.hardware.authsecret@1.0.vendor
-
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.camera.device@1.0.vendor
 
 # Exfat FS
 PRODUCT_PACKAGES += \
