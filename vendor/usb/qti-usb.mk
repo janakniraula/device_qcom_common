@@ -16,7 +16,7 @@ PRODUCT_SOONG_NAMESPACES += \
     device/qcom/common/vendor/usb
 
 # Inherit from the USB product definition.
-$(call inherit-product, vendor/qcom/opensource/usb/vendor_product.mk)
+#$(call inherit-product, vendor/qcom/opensource/usb/vendor_product.mk)
 
 ifneq (,$(filter 5.4 5.10, $(TARGET_KERNEL_VERSION)))
 TARGET_HAS_DIAG_ROUTER := true
