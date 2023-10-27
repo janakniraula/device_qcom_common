@@ -24,6 +24,10 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
 PRODUCT_PACKAGES += \
     QCOMGPSFrameworksOverlay
 
+# Packages
+PRODUCT_PACKAGES += \
+    android.hardware.gnss-V2-ndk.vendor
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml

@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+PRODUCT_SOONG_NAMESPACES += \
+    device/qcom/common/vendor/charging
+
 # Health
 ifeq ($(TARGET_USE_AIDL_QTI_HEALTH),true)
 $(call inherit-product, vendor/qcom/opensource/healthd-ext/health-vendor-product.mk)
@@ -19,6 +22,9 @@ else
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl-qti \
     android.hardware.health@2.1-service
+
+PRODUCT_COPY_FILES += \
+    $(QCOM_COMMON_PATH)/vendor/init/init.charger_service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.charger_service.rc
 endif
 
 # Suspend
