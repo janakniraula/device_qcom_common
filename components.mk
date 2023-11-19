@@ -37,12 +37,16 @@ endif
 # QTI Common Components
 
 ifneq (,$(filter adreno, $(TARGET_COMMON_QTI_COMPONENTS)))
-  ifeq ($(call is-board-platform-in-list,$(5_10_FAMILY)),true)
-    TARGET_ADRENO_COMPONENT_VARIANT ?= adreno
+  ifeq ($(call is-board-platform-in-list,$(5_15_FAMILY)),true)
+    TARGET_ADRENO_COMPONENT_VARIANT ?= adreno-t
+  else ifeq ($(call is-board-platform-in-list,$(5_10_FAMILY)),true)
+    TARGET_ADRENO_COMPONENT_VARIANT ?= adreno-s
+  else ifeq ($(call is-board-platform-in-list,$(4_14_FAMILY) $(4_19_FAMILY) $(5_4_FAMILY)),true)
+    TARGET_ADRENO_COMPONENT_VARIANT ?= adreno-r
   else ifeq ($(call is-board-platform-in-list,$(3_18_FAMILY) $(4_4_FAMILY) msm8953),true)
     TARGET_ADRENO_COMPONENT_VARIANT ?= adreno-5xx
   else
-    TARGET_ADRENO_COMPONENT_VARIANT ?= adreno-6xx-legacy
+    $(error "Adreno component is enabled, but there is not a variant available for your platform.")
   endif
   include $(QCOM_COMMON_PATH)/vendor/$(TARGET_ADRENO_COMPONENT_VARIANT)/qti-$(TARGET_ADRENO_COMPONENT_VARIANT).mk
 endif
@@ -122,12 +126,7 @@ endif
 
 ifneq (,$(filter perf, $(TARGET_COMMON_QTI_COMPONENTS)))
   include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
-  ifeq ($(call is-board-platform-in-list,$(5_10_FAMILY) $(5_15_FAMILY)),true)
-    TARGET_PERF_COMPONENT_VARIANT ?= perf
-  else
-    TARGET_PERF_COMPONENT_VARIANT ?= perf-legacy
-  endif
-  include $(QCOM_COMMON_PATH)/vendor/$(TARGET_PERF_COMPONENT_VARIANT)/qti-$(TARGET_PERF_COMPONENT_VARIANT).mk
+  include $(QCOM_COMMON_PATH)/vendor/perf/qti-perf.mk
 endif
 
 ifneq (,$(filter qseecomd, $(TARGET_COMMON_QTI_COMPONENTS)))

@@ -22,8 +22,8 @@
     <Libname>libapengine.so</Libname>
     <Configs>
         <STUTTER_SCALE>10</STUTTER_SCALE>
-        <GROUP_UPMIGRATE_PATH>/proc/sys/walt/sched_group_upmigrate</GROUP_UPMIGRATE_PATH>
-        <GROUP_DOWNMIGRATE_PATH>/proc/sys/walt/sched_group_downmigrate</GROUP_DOWNMIGRATE_PATH>
+        <GROUP_UPMIGRATE_PATH>/proc/sys/kernel/sched_group_upmigrate</GROUP_UPMIGRATE_PATH>
+        <GROUP_DOWNMIGRATE_PATH>/proc/sys/kernel/sched_group_downmigrate</GROUP_DOWNMIGRATE_PATH>
         <BIG_CLUSTER_ID>4,5,6,7</BIG_CLUSTER_ID>
     </Configs>
     <Profiles>
@@ -134,13 +134,6 @@
                 </Trigger>
             </Triggers>
             <Samples>100</Samples>
-            <Configs>
-                <SCHEDPARAMS_BIG_NR_RUN_PATH>/sys/kernel/msm_performance/notify/aggr_big_nr</SCHEDPARAMS_BIG_NR_RUN_PATH>
-                <SCHEDPARAMS_AGGR_TOP_LOAD_PATH>/sys/kernel/msm_performance/notify/aggr_top_load</SCHEDPARAMS_AGGR_TOP_LOAD_PATH>
-                <SCHEDPARAMS_REGISTER_SCHED_TRIGGERS>/sys/kernel/msm_performance/parameters/core_ctl_register</SCHEDPARAMS_REGISTER_SCHED_TRIGGERS>
-                <SCHEDPARAMS_CLUSTER_TOP_LOAD_PATH>/sys/kernel/msm_performance/notify/top_load_cluster</SCHEDPARAMS_CLUSTER_TOP_LOAD_PATH>
-                <SCHEDPARAMS_CLUSTER_CURR_CAP_PATH>/sys/kernel/msm_performance/notify/curr_cap_cluster</SCHEDPARAMS_CLUSTER_CURR_CAP_PATH>
-            </Configs>
         </Meter>
 
         <Meter>

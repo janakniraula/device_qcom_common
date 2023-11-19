@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Paranoid Android
+# Copyright (C) 2023 Paranoid Android
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,16 @@ PRODUCT_SOONG_NAMESPACES += \
 TARGET_PERF_COMPONENT_VARIANT := perf
 
 # Configs
+# Use the configs for TARGET_BOARD_PLATFORM unless otherwise specified
+ifeq ($(TARGET_BOARD_PLATFORM)$(TARGET_BOARD_SUFFIX),bengal_515)
+    TARGET_PERF_DIR := bengal_515
+else
+    TARGET_PERF_DIR := $(TARGET_BOARD_PLATFORM)
+endif
+
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(QCOM_COMMON_PATH)/vendor/perf/configs/common,$(TARGET_COPY_OUT_VENDOR)/etc) \
-    $(call find-copy-subdir-files,*,$(QCOM_COMMON_PATH)/vendor/perf/configs/$(TARGET_BOARD_PLATFORM),$(TARGET_COPY_OUT_VENDOR)/etc) \
-    $(call find-copy-subdir-files,*,$(QCOM_COMMON_PATH)/vendor/perf/configs/test,$(TARGET_COPY_OUT_VENDOR)/etc)
+    $(call find-copy-subdir-files,*,$(QCOM_COMMON_PATH)/vendor/perf/configs/$(TARGET_PERF_DIR),$(TARGET_COPY_OUT_VENDOR)/etc)
 
 # Disable IOP HAL for select platforms.
 ifeq ($(call is-board-platform-in-list, msm8937 msm8953 msm8998 qcs605 sdm660 sdm710),true)
@@ -39,6 +45,7 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.power-service-qti \
     android.hardware.thermal@2.0.vendor \
+    android.hardware.thermal-V1-ndk.vendor \
     libavservices_minijail.vendor \
     libpsi.vendor \
     libtflite \
@@ -55,31 +62,20 @@ endif
 
 # Properties
 PRODUCT_VENDOR_PROPERTIES += \
-    ro.vendor.perf-hal.ver=2.3 \
+    ro.vendor.perf-hal.ver=3.0 \
     ro.vendor.extension_library=libqti-perfd-client.so \
     ro.vendor.perf.scroll_opt=true \
     ro.vendor.qspm.enable=true \
-    vendor.power.pasr.enabled=true
-
-ifeq ($(TARGET_KERNEL_VERSION),5.15)
-PRODUCT_VENDOR_PROPERTIES += \
+    vendor.power.pasr.enabled=false \
+    vendor.pasr.activemode.enabled=false \
     vendor.perf.framepacing.enable=1
-endif
 
-ifneq (,$(filter 5.10 5.15, $(TARGET_KERNEL_VERSION)))
+ifneq (,$(filter 4.19 5.4 5.10 5.15, $(TARGET_KERNEL_VERSION)))
 PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.beluga.p=0x3 \
     ro.vendor.beluga.c=0x4800 \
     ro.vendor.beluga.s=0x900 \
     ro.vendor.beluga.t=0x240
-endif
-
-ifneq (,$(filter 4.14 4.19 5.4 5.10 5.15, $(TARGET_KERNEL_VERSION)))
-ifeq ($(TARGET_BOARD_PLATFORM), holi)
-PRODUCT_VENDOR_PROPERTIES += vendor.pasr.activemode.enabled=false
-else
-PRODUCT_VENDOR_PROPERTIES += vendor.pasr.activemode.enabled=true
-endif
 endif
 
 # Get non-open-source specific aspects
